@@ -32,17 +32,21 @@ class CatalogoLibrosXML(private val cargador: String) {
     }
 
     /**
-     * metodo que lee el xml , @return un Document
+     * metodo que lee el xml
+     * @param String nombre de direccion del xml
+     *  @return un Document
      */
-     fun readXml(pathName: String): Document {
+     private fun readXml(pathName: String): Document {
         val xmlFile = File(pathName)
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile)
     }
 
     /**
-     * metodo que recibe unos nombres de unos nodos , @return una lista de ellos
+     * metodo que recibe unos nombres de unos nodos
+     * @param Document , tagName (String , etiqueta)
+     * @return una lista de nodos
      */
-     fun obtenerListaNodosPorNombre(doc: Document, tagName: String): MutableList<Node> {
+     private fun obtenerListaNodosPorNombre(doc: Document, tagName: String): MutableList<Node> {
         val bookList: NodeList = doc.getElementsByTagName(tagName)
         val lista = mutableListOf<Node>()
         for (i in 0..bookList.length - 1)
@@ -58,7 +62,7 @@ class CatalogoLibrosXML(private val cargador: String) {
     }
 
     /**
-    *
+    *@param nombre del libro (String)
     * @return  Devuelve true si existe, `false` en caso contrario.
     * */
     fun existeLibro(idLibro: String): Boolean {
@@ -82,8 +86,8 @@ class CatalogoLibrosXML(private val cargador: String) {
     }
 
     /**
-      *
-      * @return  Devuelve true si existe, `false` en caso contrario.
+      *@param nombre del libro (idLibro:String)
+      * @return  Devuelve un Map con la informacion del libro
       * */
     fun infoLibro(idLibro: String): Map<String, Any> {
         var m = mutableMapOf<String, Any>()
